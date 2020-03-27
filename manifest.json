@@ -1,0 +1,27 @@
+{
+  "description": "Simple redirect all requests from one url to another.",
+  "manifest_version": 2,
+  "name": "Simple Redirect",
+  "author": "Hari Saksena",
+  "version": "0.1",
+  "icons": {
+    "48": "icons/sr-48.png",
+    "32": "icons/sr-32.png",
+    "16": "icons/sr-16.png"
+  },
+  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"],
+  "background": {
+    "scripts": ["background/listener.js"]
+  },
+  "browser_action": {
+    "default_icon": {
+      "48": "icons/sr-48.png",
+      "32": "icons/sr-32.png",
+      "16": "icons/sr-16.png"
+    }
+  },
+  "developer": {
+    "name": "Hari Saksena"
+  },
+  "homepage_url": "https://gitlab.com/Antiquete/simple-redirect"
+}
