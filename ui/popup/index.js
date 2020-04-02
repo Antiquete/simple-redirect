@@ -65,14 +65,19 @@ browser.runtime.getBackgroundPage().then(
       }
     }
 
-    // Set click handler for add confirm action
-    $("#add-fields-confirm").click(function() {
+    // Set click and enter key handler for add confirm action
+    let handleAddConfirm = function() {
+      console.log("this :", this);
       let source = $(`#${$(this).data("source-element-id")}`).val();
       let target = $(`#${$(this).data("target-element-id")}`).val();
       if (source !== "" && target !== "") {
         page.setRedirect(source, target);
         location.reload();
       }
+    };
+    $("#add-fields-confirm").click(handleAddConfirm);
+    $("#add-fields input[type='text']").keypress(function(e) {
+      if (e.which == 13) handleAddConfirm.call($("#add-fields-confirm"));
     });
 
     // Set click handlers for save action
