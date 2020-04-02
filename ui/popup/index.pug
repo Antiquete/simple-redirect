@@ -1,0 +1,47 @@
+// Copyright (C) 2020 Hari Saksena <hari.mail@protonmail.ch>
+// 
+// This file is part of Simple Redirect.
+// 
+// Simple Redirect is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Simple Redirect is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with Simple Redirect.  If not, see <http://www.gnu.org/licenses/>.
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+    link(rel="stylesheet", href="dist/css/mystyles.css")
+  body      
+    .card
+      header.card-header
+        p.card-header-title Simple Redirect
+        a#add-button.card-header-icon(href='#', aria-label='Add')
+          span.icon +
+      .card-content
+        .content
+          #list
+          #empty-msg.container
+            p.has-text-centered No redirects yet.
+            p.has-text-centered Press '✔' to add a redirect.
+            hr
+          #add-fields.field.has-addons.has-addons-centered
+            p.control
+              input#add-fields-source.input.is-small(type="text" placeholder="Source")
+            p.control
+              input#add-fields-target.input.is-small(type="text" placeholder="Target")
+            p.control
+              a#add-fields-confirm.button.is-small.is-primary(href="#" data-source-element-id="add-fields-source" data-target-element-id="add-fields-target")
+                span.icon.is-small ✔
+      footer.card-footer
+    script(src="./dist/main.js")
