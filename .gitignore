@@ -1,0 +1,12 @@
+# System Specific Configuration
+package-lock.json
+
+# Third-party Code
+node_modules
+
+# Build Files
+ui/popup/index.html
+ui/popup/dist/main.js
+ui/popup/dist/main.js.map
+ui/popup/dist/css/mystyles.css
+ui/popup/dist/css/mystyles.css.map
