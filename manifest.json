@@ -1,24 +1,31 @@
 {
-  "description": "Simple redirect all requests from one url to another.",
+  "description": "Simply redirect all requests from one url to another.",
   "manifest_version": 2,
   "name": "Simple Redirect",
   "author": "Hari Saksena",
   "version": "0.1",
   "icons": {
-    "48": "icons/sr-48.png",
-    "32": "icons/sr-32.png",
-    "16": "icons/sr-16.png"
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
   },
-  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"],
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>",
+    "storage",
+    "notifications"
+  ],
   "background": {
     "scripts": ["background/listener.js"]
   },
   "browser_action": {
     "default_icon": {
-      "48": "icons/sr-48.png",
-      "32": "icons/sr-32.png",
-      "16": "icons/sr-16.png"
-    }
+      "48": "icons/icon.svg",
+      "96": "icons/icon.svg"
+    },
+    "default_title": "Simple Redirect",
+    "default_popup": "ui/popup/index.html",
+    "browser_style": true
   },
   "developer": {
     "name": "Hari Saksena"
