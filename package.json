@@ -1,0 +1,46 @@
+{
+  "name": "simple-redirect",
+  "version": "0.1.0",
+  "description": "Simply redirect all requests from one url to another.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pug ui & webpack --progress --mode=production",
+    "watch": "pug -w ui & webpack --progress --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Antiquete/simple-redirect.git"
+  },
+  "keywords": [
+    "redirect",
+    "url",
+    "firefox",
+    "webextension",
+    "extension"
+  ],
+  "author": "Hari Saksena",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://gitlab.com/Antiquete/simple-redirect/issues"
+  },
+  "homepage": "https://gitlab.com/Antiquete/simple-redirect",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "bulma": "^0.8.1",
+    "css-loader": "^3.4.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "fontawesome": "^5.6.3",
+    "jquery": "^3.4.1",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
+    "pug-cli": "^1.0.0-alpha6",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
