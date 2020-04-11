@@ -111,6 +111,12 @@ browser.runtime.getBackgroundPage().then(
       this.checked ? page.enableRedirect(source) : page.disableRedirect(source);
       location.reload();
     });
+
+    // Set click handlers for view
+    $(".action-view").click(function () {
+      let source = $(this).data("source");
+      window.location = `editor.html?source=${source}`;
+    });
   },
   function () {
     console.log("Loading failed.");
