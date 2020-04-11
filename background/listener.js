@@ -42,6 +42,24 @@ function updateRedirect(source, target) {
   saveRedirects();
 }
 
+function enableRedirect(source) {
+  for (const [i, r] of Redirects.entries()) {
+    if (r.source == source) {
+      r.isEnabled = true;
+    }
+  }
+  saveRedirects();
+}
+
+function disableRedirect(source) {
+  for (const [i, r] of Redirects.entries()) {
+    if (r.source == source) {
+      r.isEnabled = false;
+    }
+  }
+  saveRedirects();
+}
+
 function setRedirect(source, target, isRegex = false) {
   Redirects.push(new Rule(source, target, isRegex));
   saveRedirects();
