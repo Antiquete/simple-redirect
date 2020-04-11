@@ -88,8 +88,14 @@ function redirect(e) {
 
   // Loop through all redirect rules
   for (const [i, r] of Redirects.entries()) {
-    // Check if source exists inside url
-    if (e.url.includes(r.source)) {
+    // Check if source exists inside url and is rule enabled
+    if (e.url.includes(r.source) && r.isEnabled) {
+      // Break if target includes source and target is already in url (Change source to target only one time)
+      // Avoid infinite loops in case of target includes source
+      if (r.target.includes(r.source)) {
+        if (e.url.includes(r.target)) continue;
+      }
+
       // Set redirectUrl to target
       e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
       sendNotification(`${e.url} -> Redirected to: ${e.redirectUrl}`);
