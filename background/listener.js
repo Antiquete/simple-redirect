@@ -17,10 +17,17 @@
 // You should have received a copy of the GNU General Public License
 // along with Simple Redirect.  If not, see <http://www.gnu.org/licenses/>.
 
-Rule = function (source, target, isRegex, isEnabled = true) {
+Rule = function (
+  source,
+  target,
+  isRegex,
+  isDeepRecurse = true,
+  isEnabled = true
+) {
   this.source = source;
   this.target = target;
   this.isRegex = isRegex;
+  this.isDeepRecurse = isDeepRecurse;
   this.isEnabled = isEnabled;
 };
 
@@ -41,10 +48,19 @@ function saveRedirects() {
   browser.storage.local.set({ redirects: Redirects });
 }
 
-function updateRedirect(source, target) {
+function updateRedirect(
+  source,
+  target,
+  isRegex = null,
+  isDeepRecurse = null,
+  isEnabled = null
+) {
   for (const [i, r] of Redirects.entries()) {
     if (r.source == source) {
       r.target = target;
+      if (isRegex !== null) r.isRegex = isRegex;
+      if (isDeepRecurse !== null) r.isDeepRecurse = isDeepRecurse;
+      if (isEnabled !== null) r.isEnabled = isEnabled;
     }
   }
   saveRedirects();
