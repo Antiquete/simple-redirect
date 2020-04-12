@@ -110,7 +110,7 @@ function redirect(e) {
       // Set redirectUrl to target
       e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
       if (allowNotifications)
-        sendNotification(`${e.url} -> Redirected to: ${e.redirectUrl}`);
+        sendNotification(`"${e.url}" ➜ "${e.redirectUrl}"`);
       console.log(`Changing Request From: ${e.url} To: ${e.redirectUrl}`);
       break;
     }
