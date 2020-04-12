@@ -26,7 +26,7 @@ html(lang="en")
     .card
       header.card-header
         p.card-header-title Simple Redirect
-        a#add-button.card-header-icon(href='#', aria-label='Add')
+        a#add-button.card-header-icon(href='#', aria-label='Add' title="Add new Redirect")
           span.icon +
       .card-content
         .content
@@ -41,7 +41,7 @@ html(lang="en")
             p.control
               input#add-fields-target.input.is-small(type="text" placeholder="Target")
             p.control
-              a#add-fields-confirm.button.is-small.is-primary(href="#" data-source-element-id="add-fields-source" data-target-element-id="add-fields-target")
+              a#add-fields-confirm.button.is-small.is-primary(href="#" data-source-element-id="add-fields-source" data-target-element-id="add-fields-target" title="Save")
                 span.icon.is-small ✔
       footer.card-footer
     script(src="./dist/main.js")

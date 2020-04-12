@@ -28,25 +28,25 @@ function createListItem(i, source, target, isEnabled) {
     "#list"
   )[0].innerHTML += `<div class="field has-addons has-addons-centered r-field">
                                 <p class="control">
-                                  <a class="button is-small is-fullwidth is-outlined">
-                                    <input id="is-enabled-${i}" class="action-enable is-small" type="checkbox" data-source="${source}" ${checkState}>
+                                  <a class="button is-small is-fullwidth is-outlined" title="Enable/Disable">
+                                    <input id="is-enabled-${i}" class="action-enable is-small" type="checkbox" data-source="${source}" ${checkState}  title="Enable/Disable">
                                   </a>
                                 </p>
                                 <p class="control is-expanded">
-                                  <a class="button is-small is-static is-fullwidth">${source}</a>
+                                  <a class="button is-small is-static is-fullwidth" title="Source">${source}</a>
                                 </p>
                                 <p class="control">
-                                  <input id="target-${i}" class="input is-small" type="text" value="${target}">
+                                  <input id="target-${i}" class="input is-small" type="text" value="${target}"  title="Target">
                                 </p>
                                 <p class="control">
-                                  <a class="button is-small is-primary ${classOverride} action-save" data-source="${source}" data-target-element-id="target-${i}">
+                                  <a class="button is-small is-primary ${classOverride} action-save" data-source="${source}" data-target-element-id="target-${i}"  title="Save">
                                     <span class="icon is-small">
                                       ✔
                                     </span>
                                   </a>
                                 </p>
                                 <p class="control">
-                                  <a class="button is-small is-danger ${classOverride} action-del" data-source="${source}">
+                                  <a class="button is-small is-danger ${classOverride} action-del" data-source="${source}" title="Remove">
                                     <span class="icon is-small">
                                       ✘
                                     </span>
