@@ -27,6 +27,10 @@
     "default_popup": "ui/popup.html",
     "browser_style": true
   },
+  "options_ui": {
+    "page": "ui/settings.html",
+    "browser_style": true
+  },
   "developer": {
     "name": "Hari Saksena"
   },
