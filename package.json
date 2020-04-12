@@ -5,9 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pug src/ui/popup -o ui/popup & webpack --progress --mode=production",
-    "watch": "pug -w src/ui/popup -o ui/popup & webpack --progress --watch",
-    "package": "jszip-cli"
+    "build:pug": "pug src/ui -o ui",
+    "watch:pug": "pug src/ui -o ui -w",
+    "build:webpack": "webpack --progress --mode=production",
+    "watch:webpack": "webpack --progress --watch",
+    "build": "npm-run-all --parallel build:*",
+    "watch": "npm-run-all --parallel watch:*",
+    "package": "npm-run-all build jszip-cli"
   },
   "repository": {
     "type": "git",
