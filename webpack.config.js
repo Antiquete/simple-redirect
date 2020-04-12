@@ -4,11 +4,14 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   mode: "production",
-  entry: "./src/ui/popup/index.js",
+  entry: {
+    popup: "./src/ui/popup.js",
+    settings: "./src/ui/settings.js",
+  },
   devtool: "cheap-module-source-map",
   output: {
-    path: path.resolve(__dirname, "ui/popup"),
-    filename: "js/main.js",
+    path: path.resolve(__dirname, "ui"),
+    filename: "[name].bundle.js",
   },
   node: {
     fs: "empty",
@@ -41,5 +44,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [new ExtractTextPlugin("css/mystyles.css")],
+  plugins: [new ExtractTextPlugin("theme.css")],
 };

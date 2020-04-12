@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+    link(rel="stylesheet", href="theme.css")
+  body
+    .field
+      p.control
+        label.checkbox
+          input#input-notifications(type="checkbox" checked)
+        |  Notifications
+      p.control
+        label.checkbox
+          input#input-deep-redirection(type="checkbox" checked)
+        |  Deep Redirection
+    script(src="settings.bundle.js")

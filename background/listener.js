@@ -25,8 +25,16 @@ Rule = function (source, target, isRegex, isEnabled = true) {
 };
 
 var Redirects = [];
+
+// Keep notifications and deep redirects enabled by default
+var allowNotifications = true;
+var allowDeepRedirects = true;
 browser.storage.local.get().then(function (value) {
   if (Array.isArray(value.redirects)) Redirects = value.redirects;
+
+  // Disable notifications and deep redirects only in case of a false value set
+  if (value.disableNotificatons === true) allowNotifications = false;
+  if (value.disableDeepRedirection === true) allowDeepRedirects = false;
 });
 
 function saveRedirects() {
@@ -90,15 +98,19 @@ function redirect(e) {
   for (const [i, r] of Redirects.entries()) {
     // Check if source exists inside url and is rule enabled
     if (e.url.includes(r.source) && r.isEnabled) {
-      // Break if target includes source and target is already in url (Change source to target only one time)
+      // Skip if target includes source and target is already in url (Change source to target only one time)
       // Avoid infinite loops in case of target includes source
       if (r.target.includes(r.source)) {
         if (e.url.includes(r.target)) continue;
       }
 
+      // Skip if deep redirects are disabled and request is not of main frame type
+      if (!allowDeepRedirects && e.type !== "main_frame") continue;
+
       // Set redirectUrl to target
       e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
-      sendNotification(`${e.url} -> Redirected to: ${e.redirectUrl}`);
+      if (allowNotifications)
+        sendNotification(`${e.url} -> Redirected to: ${e.redirectUrl}`);
       console.log(`Changing Request From: ${e.url} To: ${e.redirectUrl}`);
       break;
     }
