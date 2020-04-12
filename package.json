@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pug src/ui/popup -o ui/popup & webpack --progress --mode=production",
-    "watch": "pug -w src/ui/popup -o ui/popup & webpack --progress --watch"
+    "watch": "pug -w src/ui/popup -o ui/popup & webpack --progress --watch",
+    "package": "jszip-cli"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
+    "@ffflorian/jszip-cli": "^3.1.0",
     "babel-loader": "^8.1.0",
     "bulma": "^0.8.1",
     "css-loader": "^3.4.2",

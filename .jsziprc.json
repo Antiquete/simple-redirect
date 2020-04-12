@@ -1,0 +1,5 @@
+{
+  "mode": "add",
+  "entries": ["background", "icons", "ui", "LICENSE", "manifest.json"],
+  "outputEntry": "release/simple-redirect.zip"
+}
