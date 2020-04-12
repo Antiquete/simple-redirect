@@ -4,14 +4,14 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   mode: "production",
-  entry: "./ui/popup/index.js",
+  entry: "./src/ui/popup/index.js",
   devtool: "cheap-module-source-map",
   output: {
-    path: path.resolve(__dirname, "ui/popup/dist"),
-    filename: "main.js"
+    path: path.resolve(__dirname, "ui/popup"),
+    filename: "js/main.js",
   },
   node: {
-    fs: "empty"
+    fs: "empty",
   },
   module: {
     rules: [
@@ -21,25 +21,25 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"]
-          }
-        }
+            presets: ["@babel/preset-env"],
+          },
+        },
       },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: ["css-loader", "sass-loader"]
-        })
+          use: ["css-loader", "sass-loader"],
+        }),
       },
       {
         test: /\.sass$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: ["css-loader", "sass-loader"]
-        })
-      }
-    ]
+          use: ["css-loader", "sass-loader"],
+        }),
+      },
+    ],
   },
-  plugins: [new ExtractTextPlugin("css/mystyles.css")]
+  plugins: [new ExtractTextPlugin("css/mystyles.css")],
 };

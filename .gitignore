@@ -5,8 +5,4 @@ package-lock.json
 node_modules
 
 # Build Files
-ui/popup/index.html
-ui/popup/dist/main.js
-ui/popup/dist/main.js.map
-ui/popup/dist/css/mystyles.css
-ui/popup/dist/css/mystyles.css.map
+ui/popup/*

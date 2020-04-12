@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pug ui & webpack --progress --mode=production",
-    "watch": "pug -w ui & webpack --progress --watch"
+    "build": "pug src/ui/popup -o ui/popup & webpack --progress --mode=production",
+    "watch": "pug -w src/ui/popup -o ui/popup & webpack --progress --watch"
   },
   "repository": {
     "type": "git",
