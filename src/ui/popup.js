@@ -75,7 +75,6 @@ browser.runtime.getBackgroundPage().then(
 
     // Set click and enter key handler for add confirm action
     let handleAddConfirm = function () {
-      console.log("this :", this);
       let source = $(`#${$(this).data("source-element-id")}`).val();
       let target = $(`#${$(this).data("target-element-id")}`).val();
       if (source !== "" && target !== "") {

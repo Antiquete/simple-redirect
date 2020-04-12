@@ -5,5 +5,5 @@ package-lock.json
 node_modules
 
 # Build Files
-ui/popup/*
+ui/*
 release/*
