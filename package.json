@@ -11,7 +11,8 @@
     "watch:webpack": "webpack --progress --watch",
     "build": "npm-run-all --parallel build:*",
     "watch": "npm-run-all --parallel watch:*",
-    "package": "npm-run-all build jszip-cli"
+    "zip:make": "jszip-cli -f",
+    "package": "npm-run-all --serial build zip:make"
   },
   "repository": {
     "type": "git",
