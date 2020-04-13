@@ -24,9 +24,8 @@ function createListItem(i, source, target, isEnabled) {
   let checkState = isEnabled ? "checked" : "";
   let classOverride = isEnabled ? "" : "is-outlined";
 
-  $(
-    "#list"
-  )[0].innerHTML += `<div class="field has-addons has-addons-centered r-field">
+  let list = $("#list");
+  let content = $(`<div class="field has-addons has-addons-centered r-field">
                                 <p class="control">
                                   <a class="button is-small is-fullwidth is-outlined" title="Enable/Disable">
                                     <input id="is-enabled-${i}" class="action-enable is-small" type="checkbox" data-source="${source}" ${checkState}  title="Enable/Disable">
@@ -52,7 +51,8 @@ function createListItem(i, source, target, isEnabled) {
                                     </span>
                                   </a>
                                 </p>
-                              </div>`;
+                              </div>`);
+  list.append(content);
 }
 
 $("#add-button").hide();
