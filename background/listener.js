@@ -21,7 +21,7 @@ Rule = function (
   source,
   target,
   isRegex,
-  isDeepRecurse = true,
+  isDeepRecurse = false,
   isEnabled = true
 ) {
   this.source = source;
