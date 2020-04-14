@@ -41,13 +41,22 @@ browser.runtime.getBackgroundPage().then(function (page) {
   if (Redir.isEnabled) $("#check-enabled").prop("checked", true);
   if (Redir.isRegex) $("#check-regex").prop("checked", true);
   if (Redir.isDeepRecurse) $("#check-deep-recurse").prop("checked", true);
+  if (Redir.shouldNotify) $("#check-notify").prop("checked", true);
 
   $("#save-button").click(function () {
     let target = $("#input-target").val();
+    let isEnabled = $("#check-enabled").prop("checked");
     let isRegex = $("#check-regex").prop("checked");
     let isDeepRecurse = $("#check-deep-recurse").prop("checked");
-    let isEnabled = $("#check-enabled").prop("checked");
-    page.updateRedirect(source, target, isRegex, isDeepRecurse, isEnabled);
+    let shouldNotify = $("#check-notify").prop("checked");
+    page.updateRedirect(
+      source,
+      target,
+      isRegex,
+      isDeepRecurse,
+      isEnabled,
+      shouldNotify
+    );
     window.location = "popup.html";
   });
   $("#del-button").click(function () {
