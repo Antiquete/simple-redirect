@@ -116,30 +116,30 @@ function redirect(e) {
 
   // Loop through all redirect rules
   for (const [i, r] of Redirects.entries()) {
-    // Check if source exists inside url and is rule enabled
-    if (e.url.includes(r.source) && r.isEnabled) {
-      // Skip if target includes source and target is already in url (Change source to target only one time)
-      // Avoid infinite loops in case of target includes source
-      if (r.target.includes(r.source)) {
-        if (e.url.includes(r.target)) continue;
-      }
+    if (!r.isEnabled) continue; // Skip if not enabled
+    if (!r.isRegex && !e.url.includes(r.source)) continue; // Skip if redirect type is simple and url doesn't contain source
+    if (r.isRegex && !new RegExp(r.source).test(e.url)) continue; // Skip if redirect type is regex and url doesn't pass regex test
 
-      // Handle background requests
-      if (e.type !== "main_frame") {
-        if (!allowDeepRedirects) continue; // Skip if deep redirects turned off gloabally
-        if (!r.isDeepRecurse) continue; // Skip if deep redirects turned off for this redirect
-      }
+    // Avoid infinite loops in case of target includes source
+    if (r.target.includes(r.source) && e.url.includes(r.target)) continue; // Skip if target includes source and target is already in url (Change source to target only one time)
 
-      // Set redirectUrl to target
-      e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
+    // Start handling requests
 
-      // Send notification if allowed globally and is allowed for this rule
-      if (allowNotifications)
-        if (r.shouldNotify) sendNotification(`"${e.url}" ➜ "${e.redirectUrl}"`);
-
-      console.log(`Changing Request From: ${e.url} To: ${e.redirectUrl}`);
-      break;
+    // Check for request type
+    if (e.type !== "main_frame") {
+      if (!allowDeepRedirects) continue; // Skip if deep redirects turned off globally
+      if (!r.isDeepRecurse) continue; // Skip if deep redirects turned off for this redirect
     }
+
+    // Handle request
+    e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
+
+    // Send notification if allowed globally and is allowed for this rule
+    if (allowNotifications)
+      if (r.shouldNotify) sendNotification(`"${e.url}" ➜ "${e.redirectUrl}"`);
+
+    console.log(`Changing Request From: ${e.url} To: ${e.redirectUrl}`);
+    break;
   }
 
   // Return modified/non-modified details;
