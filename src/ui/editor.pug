@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+    link(rel="stylesheet", href="theme.css")
+  body
+    .card
+        header.card-header
+          p.card-header-title Simple Redirect
+        .card-content
+          .content
+            form
+              .field.has-addons
+                p.control
+                  a.button.is-small.is-static Source
+                p.control.is-expanded
+                  input#input-source.button.is-small.is-static(type="text")
+              .field.has-addons
+                p.control
+                  a.button.is-small.is-static Target
+                p.control.is-expanded
+                  input#input-target.input.is-small(type="text" value="")
+              .field
+                p.control
+                  label.checkbox
+                    input#check-enabled(type="checkbox")
+                    |   Enabled
+                p.control
+                  label.checkbox
+                    input#check-deep-recurse(type="checkbox")
+                    |   Deep Redirect
+                p.control
+                  label.checkbox
+                    input#check-regex(type="checkbox")
+                    |   Regex
+                p.control
+                  label.checkbox
+                    input#check-notify(type="checkbox")
+                    |   Notify
+        footer.card-footer
+          a#cancel-button.card-footer-item(title="Back")
+            i.fa.fa-arrow-left
+          a#del-button.card-footer-item.is-danger(title="Delete")
+            i.fa.fa-trash.text-danger
+          a#save-button.card-footer-item.is-primary(title="Save")
+            i.fa.fa-save.text-success
+    script(src="editor.bundle.js")
+  

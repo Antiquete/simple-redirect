@@ -6,6 +6,7 @@ module.exports = {
   mode: "production",
   entry: {
     popup: "./src/ui/popup.js",
+    editor: "./src/ui/editor.js",
     settings: "./src/ui/settings.js",
   },
   devtool: "cheap-module-source-map",

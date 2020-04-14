@@ -55,6 +55,13 @@ function createListItem(i, source, target, isEnabled) {
                                     </span>
                                   </a>
                                 </p>
+                                <p class="control">
+                                  <a class="button is-small is-info ${classOverride} action-view" data-source="${source}" title="View">
+                                    <span class="icon is-small">
+                                      <i class="fa fa-arrow-right"></i>
+                                    </span>
+                                  </a>
+                                </p>
                               </div>`);
   list.append(content);
 }
@@ -110,6 +117,12 @@ browser.runtime.getBackgroundPage().then(
       let source = $(this).data("source");
       this.checked ? page.enableRedirect(source) : page.disableRedirect(source);
       location.reload();
+    });
+
+    // Set click handlers for view
+    $(".action-view").click(function () {
+      let source = $(this).data("source");
+      window.location = `editor.html?source=${source}`;
     });
   },
   function () {

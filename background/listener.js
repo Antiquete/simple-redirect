@@ -17,11 +17,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Simple Redirect.  If not, see <http://www.gnu.org/licenses/>.
 
-Rule = function (source, target, isRegex, isEnabled = true) {
+Rule = function (
+  source,
+  target,
+  isRegex,
+  isDeepRecurse = false,
+  isEnabled = true,
+  shouldNotify = true
+) {
   this.source = source;
   this.target = target;
-  this.isRegex = isRegex;
   this.isEnabled = isEnabled;
+  this.isRegex = isRegex;
+  this.isDeepRecurse = isDeepRecurse;
+  this.shouldNotify = shouldNotify;
 };
 
 var Redirects = [];
@@ -41,10 +50,21 @@ function saveRedirects() {
   browser.storage.local.set({ redirects: Redirects });
 }
 
-function updateRedirect(source, target) {
+function updateRedirect(
+  source,
+  target,
+  isRegex = null,
+  isDeepRecurse = null,
+  isEnabled = null,
+  shouldNotify = null
+) {
   for (const [i, r] of Redirects.entries()) {
     if (r.source == source) {
       r.target = target;
+      if (isRegex !== null) r.isRegex = isRegex;
+      if (isDeepRecurse !== null) r.isDeepRecurse = isDeepRecurse;
+      if (isEnabled !== null) r.isEnabled = isEnabled;
+      if (shouldNotify !== null) r.shouldNotify = shouldNotify;
     }
   }
   saveRedirects();
@@ -96,24 +116,30 @@ function redirect(e) {
 
   // Loop through all redirect rules
   for (const [i, r] of Redirects.entries()) {
-    // Check if source exists inside url and is rule enabled
-    if (e.url.includes(r.source) && r.isEnabled) {
-      // Skip if target includes source and target is already in url (Change source to target only one time)
-      // Avoid infinite loops in case of target includes source
-      if (r.target.includes(r.source)) {
-        if (e.url.includes(r.target)) continue;
-      }
+    if (!r.isEnabled) continue; // Skip if not enabled
+    if (!r.isRegex && !e.url.includes(r.source)) continue; // Skip if redirect type is simple and url doesn't contain source
+    if (r.isRegex && !new RegExp(r.source).test(e.url)) continue; // Skip if redirect type is regex and url doesn't pass regex test
 
-      // Skip if deep redirects are disabled and request is not of main frame type
-      if (!allowDeepRedirects && e.type !== "main_frame") continue;
+    // Avoid infinite loops in case of target includes source
+    if (r.target.includes(r.source) && e.url.includes(r.target)) continue; // Skip if target includes source and target is already in url (Change source to target only one time)
 
-      // Set redirectUrl to target
-      e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
-      if (allowNotifications)
-        sendNotification(`"${e.url}" ➜ "${e.redirectUrl}"`);
-      console.log(`Changing Request From: ${e.url} To: ${e.redirectUrl}`);
-      break;
+    // Start handling requests
+
+    // Check for request type
+    if (e.type !== "main_frame") {
+      if (!allowDeepRedirects) continue; // Skip if deep redirects turned off globally
+      if (!r.isDeepRecurse) continue; // Skip if deep redirects turned off for this redirect
     }
+
+    // Handle request
+    e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
+
+    // Send notification if allowed globally and is allowed for this rule
+    if (allowNotifications)
+      if (r.shouldNotify) sendNotification(`"${e.url}" ➜ "${e.redirectUrl}"`);
+
+    console.log(`Changing Request From: ${e.url} To: ${e.redirectUrl}`);
+    break;
   }
 
   // Return modified/non-modified details;
