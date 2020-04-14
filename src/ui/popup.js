@@ -24,9 +24,26 @@ import "@fortawesome/fontawesome-free/js/brands";
 import "bulma";
 import $ from "jquery";
 
-function createListItem(i, source, target, isEnabled) {
+function createListItem(
+  i,
+  source,
+  target,
+  isEnabled,
+  isRegex = false,
+  isDeepRedirect = false
+) {
   let checkState = isEnabled ? "checked" : "";
   let classOverride = isEnabled ? "" : "is-outlined";
+  let regexIcon = !isRegex
+    ? ""
+    : `<span class="icon is-small is-left" title="Regex">
+        <i class="fas fa-asterisk has-text-success"></i>
+      </span>`;
+  let deepRedirectIcon = !isDeepRedirect
+    ? ""
+    : `<span class="icon is-small is-right title="Deep Redirect">
+        <i class="fas fa-sync has-text-info"></i>
+      </span>`;
 
   let list = $("#list");
   let content = $(`<div class="field has-addons has-addons-centered r-field">
@@ -38,8 +55,10 @@ function createListItem(i, source, target, isEnabled) {
                                 <p class="control is-expanded">
                                   <a class="button is-small is-static is-fullwidth" title="Source">${source}</a>
                                 </p>
-                                <p class="control">
+                                <p class="control has-icons-left has-icons-right">
                                   <input id="target-${i}" class="input is-small" type="text" value="${target}"  title="Target">
+                                  ${deepRedirectIcon}
+                                  ${regexIcon}
                                 </p>
                                 <p class="control">
                                   <a class="button is-small is-primary ${classOverride} action-save" data-source="${source}" data-target-element-id="target-${i}"  title="Save">
@@ -80,7 +99,14 @@ browser.runtime.getBackgroundPage().then(
       $("#add-button").show();
       // Populate all redirects
       for (const [i, r] of page.Redirects.entries()) {
-        createListItem(i, r.source, r.target, r.isEnabled);
+        createListItem(
+          i,
+          r.source,
+          r.target,
+          r.isEnabled,
+          r.isRegex,
+          r.isDeepRecurse
+        );
       }
     }
 
