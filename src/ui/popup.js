@@ -55,6 +55,13 @@ function createListItem(i, source, target, isEnabled) {
                                     </span>
                                   </a>
                                 </p>
+                                <p class="control">
+                                  <a class="button is-small is-info ${classOverride} action-view" data-source="${source}" title="View">
+                                    <span class="icon is-small">
+                                      <i class="fa fa-arrow-right"></i>
+                                    </span>
+                                  </a>
+                                </p>
                               </div>`);
   list.append(content);
 }
