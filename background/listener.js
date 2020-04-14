@@ -22,13 +22,15 @@ Rule = function (
   target,
   isRegex,
   isDeepRecurse = true,
-  isEnabled = true
+  isEnabled = true,
+  shouldNotify = true
 ) {
   this.source = source;
   this.target = target;
+  this.isEnabled = isEnabled;
   this.isRegex = isRegex;
   this.isDeepRecurse = isDeepRecurse;
-  this.isEnabled = isEnabled;
+  this.shouldNotify = shouldNotify;
 };
 
 var Redirects = [];
@@ -53,7 +55,8 @@ function updateRedirect(
   target,
   isRegex = null,
   isDeepRecurse = null,
-  isEnabled = null
+  isEnabled = null,
+  shouldNotify = null
 ) {
   for (const [i, r] of Redirects.entries()) {
     if (r.source == source) {
@@ -61,6 +64,7 @@ function updateRedirect(
       if (isRegex !== null) r.isRegex = isRegex;
       if (isDeepRecurse !== null) r.isDeepRecurse = isDeepRecurse;
       if (isEnabled !== null) r.isEnabled = isEnabled;
+      if (shouldNotify !== null) r.shouldNotify = shouldNotify;
     }
   }
   saveRedirects();
@@ -125,8 +129,11 @@ function redirect(e) {
 
       // Set redirectUrl to target
       e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
+
+      // Send notification if allowed globally and is allowed for this rule
       if (allowNotifications)
-        sendNotification(`"${e.url}" ➜ "${e.redirectUrl}"`);
+        if (r.shouldNotify) sendNotification(`"${e.url}" ➜ "${e.redirectUrl}"`);
+
       console.log(`Changing Request From: ${e.url} To: ${e.redirectUrl}`);
       break;
     }
