@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "web-ext lint",
     "build:pug": "pug src/ui -o ui",
     "watch:pug": "pug src/ui -o ui -w",
     "build:webpack": "webpack --progress --mode=production",
     "watch:webpack": "webpack --progress --mode=development --watch",
+    "run:web-ext": "web-ext run --browser-console",
+    "package:web-ext": "web-ext build",
     "build": "npm-run-all --parallel build:*",
     "watch": "npm-run-all --parallel watch:*",
-    "zip:make": "jszip-cli -f",
-    "package": "npm-run-all --serial build zip:make"
+    "run:dev": "npm-run-all --parallel watch run:web-ext",
+    "package": "npm-run-all --serial build package:*"
   },
   "repository": {
     "type": "git",
@@ -48,6 +51,7 @@
     "pug-cli": "^1.0.0-alpha6",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
+    "web-ext": "^4.1.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }

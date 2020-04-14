@@ -6,4 +6,4 @@ node_modules
 
 # Build Files
 ui/*
-release/*
+zips/*
