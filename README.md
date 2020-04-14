@@ -8,8 +8,9 @@ Simply redirect requests from one url to another
 
 - Simple and easy to use interface
 - Add, Remove, Edit redirection rules
-- Deep Redirect - Redirect background third party requests as well
-- Notify on a redirect
+- Deep Redirects - Redirect background third party requests as well
+- Regex Matching - Match and replace requests via regex
+- Notification - Selectively set/unset notifications for each redirect
 
 # Development
 
@@ -45,12 +46,12 @@ Zip file is generated inside zips directory.
 npm run run:dev
 ```
 
-Run a live instance of extension that reloads whenever source code changes.
+Run a live instance of extension that reloads automatically on source code change.
 
 #### Other NPM Scripts
 
 - Lint - Check for errors
-- Watch - Watch for source code changes and generate build files (This step is included in run:dev)
+- Watch - Build automatically on source code change. (This step is included in run:dev)
 
 # Screenshots
 
@@ -61,6 +62,18 @@ Run a live instance of extension that reloads whenever source code changes.
 ##### After adding a few redirects,
   
   <img src="docs/Screenshot-2.png">
+  
+##### On disabling a redirect,
+
+  <img src="docs/Screenshot-3.png">
+  
+##### Redirect reddit to old reddit using Regex,
+  
+  <img src="docs/Screenshot-4.png">
+  
+##### Redirect all background google requests to example.com using Deep Redirects,
+  
+  <img src="docs/Screenshot-5.png">
 
 # Contributing
 
