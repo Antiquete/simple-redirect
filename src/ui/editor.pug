@@ -12,31 +12,39 @@ html(lang="en")
         .card-content
           .content
             form
-              fieldset(disabled)
-                .field
-                  label.label Source
-                  .control
-                    input#input-source.input.is-small(type="text" value="")
-              .field
-                label.label Target
-                .control
+              .field.has-addons
+                p.control
+                  a.button.is-small.is-static Source
+                p.control.is-expanded
+                  input#input-source.button.is-small.is-static(type="text")
+              .field.has-addons
+                p.control
+                  a.button.is-small.is-static Target
+                p.control.is-expanded
                   input#input-target.input.is-small(type="text" value="")
-              .field.is-grouped.has-addons.has-addons-centered
-                .control
+              .field
+                p.control
                   label.checkbox
                     input#check-enabled(type="checkbox")
                     |   Enabled
-                .control
-                  label.checkbox
-                    input#check-regex(type="checkbox")
-                    |   Regex
-                .control
+                p.control
                   label.checkbox
                     input#check-deep-recurse(type="checkbox")
                     |   Deep Recurse
+                p.control
+                  label.checkbox
+                    input#check-regex(type="checkbox")
+                    |   Regex
+                p.control
+                  label.checkbox
+                    input#check-notify(type="checkbox")
+                    |   Notify
         footer.card-footer
-          a#cancel-button.card-footer-item ᐊ Back
-          a#del-button.card-footer-item.is-danger Delete
-          a#save-button.card-footer-item.is-primary Save 🖫
+          a#cancel-button.card-footer-item(title="Back")
+            i.fa.fa-arrow-left
+          a#del-button.card-footer-item.is-danger(title="Delete")
+            i.fa.fa-trash.text-danger
+          a#save-button.card-footer-item.is-primary(title="Save")
+            i.fa.fa-save.text-success
     script(src="editor.bundle.js")
   
