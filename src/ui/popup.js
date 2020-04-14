@@ -44,14 +44,14 @@ function createListItem(i, source, target, isEnabled) {
                                 <p class="control">
                                   <a class="button is-small is-primary ${classOverride} action-save" data-source="${source}" data-target-element-id="target-${i}"  title="Save">
                                     <span class="icon is-small">
-                                      ✔
+                                      <i class="fas fa-save"></i>
                                     </span>
                                   </a>
                                 </p>
                                 <p class="control">
                                   <a class="button is-small is-danger ${classOverride} action-del" data-source="${source}" title="Remove">
                                     <span class="icon is-small">
-                                      ✘
+                                      <i class="fa fa-times"></i>
                                     </span>
                                   </a>
                                 </p>

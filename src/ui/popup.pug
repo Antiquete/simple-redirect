@@ -27,13 +27,18 @@ html(lang="en")
       header.card-header
         p.card-header-title Simple Redirect
         a#add-button.card-header-icon(href='#', aria-label='Add' title="Add new Redirect")
-          span.icon +
+          span.icon
+            i.fa.fa-plus
       .card-content
         .content
           #list
           #empty-msg.container
-            p.has-text-centered No redirects yet.
-            p.has-text-centered Press '✔' to add a redirect.
+            p.has-text-centered
+              | No redirects yet.
+            p.has-text-centered
+              | Press 
+              i.far.fa-check-circle
+              |  to add a redirect.
             hr
           #add-fields.field.has-addons.has-addons-centered
             p.control
@@ -42,6 +47,7 @@ html(lang="en")
               input#add-fields-target.input.is-small(type="text" placeholder="Target")
             p.control
               a#add-fields-confirm.button.is-small.is-primary(href="#" data-source-element-id="add-fields-source" data-target-element-id="add-fields-target" title="Save")
-                span.icon.is-small ✔
+                span.icon.is-small
+                  i.fas.fa-check
       footer.card-footer
     script(src="popup.bundle.js")
