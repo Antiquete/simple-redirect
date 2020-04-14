@@ -120,8 +120,11 @@ function redirect(e) {
         if (e.url.includes(r.target)) continue;
       }
 
-      // Skip if deep redirects are disabled and request is not of main frame type
-      if (!allowDeepRedirects && e.type !== "main_frame") continue;
+      // Handle background requests
+      if (e.type !== "main_frame") {
+        if (!allowDeepRedirects) continue; // Skip if deep redirects turned off gloabally
+        if (!r.isDeepRecurse) continue; // Skip if deep redirects turned off for this redirect
+      }
 
       // Set redirectUrl to target
       e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
