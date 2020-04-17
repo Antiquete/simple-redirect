@@ -37,12 +37,12 @@ function createListItem(
   let regexIcon = !isRegex
     ? ""
     : `<span class="icon is-small is-left" title="Regex">
-        <i class="fas fa-asterisk has-text-success"></i>
+        <i class="fas fa-code has-text-success"></i>
       </span>`;
   let deepRedirectIcon = !isDeepRedirect
     ? ""
     : `<span class="icon is-small is-right title="Deep Redirect">
-        <i class="fas fa-sync has-text-info"></i>
+        <i class="fas fa-code-branch has-text-info"></i>
       </span>`;
 
   let list = $("#list");
