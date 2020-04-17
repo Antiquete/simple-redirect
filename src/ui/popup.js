@@ -45,6 +45,10 @@ function createListItem(
         <i class="fas fa-code-branch has-text-info"></i>
       </span>`;
 
+  let targetTip = `${source} -> ${target} Redirect`;
+  targetTip += isRegex ? "\n[x] RegEx" : "";
+  targetTip += isDeepRedirect ? "\n[x] Deep Redirect" : "";
+
   let list = $("#list");
   let content = $(`<div class="field has-addons has-addons-centered r-field">
                                 <p class="control">
@@ -56,7 +60,7 @@ function createListItem(
                                   <a class="button is-small is-static is-fullwidth" title="Source">${source}</a>
                                 </p>
                                 <p class="control has-icons-left has-icons-right">
-                                  <input id="target-${i}" class="input is-small" type="text" value="${target}"  title="Target">
+                                  <input id="target-${i}" class="input is-small" type="text" value="${target}"  title="${targetTip}">
                                   ${deepRedirectIcon}
                                   ${regexIcon}
                                 </p>
