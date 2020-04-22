@@ -1,6 +1,5 @@
 # System Specific Configuration
 simple_redirect.code-workspace
-package-lock.json
 
 # Third-party Code
 node_modules
