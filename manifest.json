@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "Simple Redirect",
   "author": "Hari Saksena",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "browser_specific_settings": {
     "gecko": {
       "id": "{51e8a34c-5738-43e8-aa4a-a0eddf5d7922}",
