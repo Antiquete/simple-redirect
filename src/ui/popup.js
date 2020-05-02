@@ -95,14 +95,22 @@ $("#add-button").click(function () {
   $("#add-fields input").val("");
 });
 
-browser.runtime.getBackgroundPage().then(
-  function (page) {
-    if (page.Redirects.length) {
+function refresh() {
+  location.reload();
+}
+
+function sendMessageAndReload(message) {
+  browser.runtime.sendMessage(message).then(refresh, refresh);
+}
+
+browser.runtime.sendMessage({ type: "getRedirects" }).then(
+  function (response) {
+    if (response.Redirects.length) {
       $("#empty-msg").hide();
       $("#add-fields").hide();
       $("#add-button").show();
       // Populate all redirects
-      for (const [i, r] of page.Redirects.entries()) {
+      for (const [i, r] of response.Redirects.entries()) {
         createListItem(
           i,
           r.source,
@@ -119,8 +127,11 @@ browser.runtime.getBackgroundPage().then(
       let source = $(`#${$(this).data("source-element-id")}`).val();
       let target = $(`#${$(this).data("target-element-id")}`).val();
       if (source !== "" && target !== "") {
-        page.setRedirect(source, target);
-        location.reload();
+        sendMessageAndReload({
+          type: "setRedirect",
+          source: source,
+          target: target,
+        });
       }
     };
     $("#add-fields-confirm").click(handleAddConfirm);
@@ -132,21 +143,25 @@ browser.runtime.getBackgroundPage().then(
     $("a.action-save").click(function () {
       let source = $(this).data("source");
       let target = $(`#${$(this).data("target-element-id")}`).val();
-      page.updateRedirect(source, target);
+      sendMessageAndReload({
+        type: "updateRedirect",
+        source: source,
+        target: target,
+      });
     });
 
     // Set click handlers for del action
     $("a.action-del").click(function () {
       let source = $(this).data("source");
-      page.unsetRedirect(source);
-      location.reload();
+      sendMessageAndReload({ type: "unsetRedirect", source: source });
     });
 
     // Set click handlers for enable/disable checkbox
     $("input.action-enable").change(function () {
       let source = $(this).data("source");
-      this.checked ? page.enableRedirect(source) : page.disableRedirect(source);
-      location.reload();
+      this.checked
+        ? sendMessageAndReload({ type: "enableRedirect", source: source })
+        : sendMessageAndReload({ type: "disableRedirect", source: source });
     });
 
     // Set click handlers for view

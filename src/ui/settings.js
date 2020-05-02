@@ -31,15 +31,14 @@ browser.storage.local.get().then(function (value) {
   $("#input-notifications").change(function () {
     let state = this.checked;
     browser.storage.local.set({ disableNotifications: !state });
-    browser.runtime.getBackgroundPage().then(function (page) {
-      page.allowNotifications = state;
-    });
+    browser.runtime.sendMessage({ type: "setAllowNotification", state: state });
   });
   $("#input-deep-redirection").change(function () {
     let state = this.checked;
     browser.storage.local.set({ disableDeepRedirection: !state });
-    browser.runtime.getBackgroundPage().then(function (page) {
-      page.allowDeepRedirects = state;
+    browser.runtime.sendMessage({
+      type: "setAllowDeepRedirects",
+      state: state,
     });
   });
 });

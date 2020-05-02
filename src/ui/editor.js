@@ -24,11 +24,23 @@ import "@fortawesome/fontawesome-free/js/brands";
 import "bulma";
 import $ from "jquery";
 
-browser.runtime.getBackgroundPage().then(function (page) {
+function refresh() {
+  location.reload();
+}
+
+function goBack() {
+  window.location = "popup.html";
+}
+
+function sendMessageAndReload(message) {
+  browser.runtime.sendMessage(message).then(goBack, refresh);
+}
+
+browser.runtime.sendMessage({ type: "getRedirects" }).then(function (response) {
   let source = new URLSearchParams(window.location.search).get("source");
 
   let Redir;
-  for (const [i, r] of page.Redirects.entries()) {
+  for (const [i, r] of response.Redirects.entries()) {
     if (r.source === source) {
       Redir = r;
       break;
@@ -49,21 +61,20 @@ browser.runtime.getBackgroundPage().then(function (page) {
     let isRegex = $("#check-regex").prop("checked");
     let isDeepRecurse = $("#check-deep-recurse").prop("checked");
     let shouldNotify = $("#check-notify").prop("checked");
-    page.updateRedirect(
-      source,
-      target,
-      isRegex,
-      isDeepRecurse,
-      isEnabled,
-      shouldNotify
-    );
-    window.location = "popup.html";
+    sendMessageAndReload({
+      type: "updateRedirect",
+      source: source,
+      target: target,
+      isRegex: isRegex,
+      isDeepRecurse: isDeepRecurse,
+      isEnabled: isEnabled,
+      shouldNotify: shouldNotify,
+    });
   });
   $("#del-button").click(function () {
-    page.unsetRedirect(source);
-    window.location = "popup.html";
+    sendMessageAndReload({ type: "unsetRedirect", source: source });
   });
   $("#cancel-button").click(function () {
-    window.location = "popup.html";
+    goBack();
   });
 });

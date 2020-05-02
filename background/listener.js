@@ -149,3 +149,42 @@ function redirect(e) {
 const filters = { urls: ["<all_urls>"] };
 
 browser.webRequest.onBeforeRequest.addListener(redirect, filters, ["blocking"]);
+
+// -- Message Handling
+
+function requestHandler(request, sender, sendResponse) {
+  switch (request.type) {
+    case "getRedirects":
+      sendResponse({ Redirects: Redirects });
+      break;
+    case "setRedirect":
+      setRedirect(request.source, request.target);
+      break;
+    case "unsetRedirect":
+      unsetRedirect(request.source);
+      break;
+    case "enableRedirect":
+      enableRedirect(request.source);
+      break;
+    case "disableRedirect":
+      disableRedirect(request.source);
+      break;
+    case "updateRedirect":
+      updateRedirect(
+        request.source,
+        request.target,
+        request.isRegex,
+        request.isDeepRecurse,
+        request.isEnabled,
+        request.shouldNotify
+      );
+      break;
+    case "setAllowNotifications":
+      allowNotifications = request.state;
+      break;
+    case "setAllowDeepRedirects":
+      allowDeepRedirects = request.state;
+      break;
+  }
+}
+browser.runtime.onMessage.addListener(requestHandler);
