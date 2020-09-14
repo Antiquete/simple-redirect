@@ -17,27 +17,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Simple Redirect.  If not, see <http://www.gnu.org/licenses/>.
 
-import "./common";
+import "@fortawesome/fontawesome-free/js/fontawesome";
+import "@fortawesome/fontawesome-free/js/solid";
+import "@fortawesome/fontawesome-free/js/regular";
+import "@fortawesome/fontawesome-free/js/brands";
+import "bulma";
+import "bulma-divider";
+import "bulma-switch";
 
-browser.storage.local.get().then(function (value) {
-  if (value.disableNotifications === true) {
-    $("#input-notifications").removeProp("checked");
-  }
-  if (value.disableDeepRedirection === true) {
-    $("#input-deep-redirection").removeProp("checked");
-  }
+import $ from "jquery";
 
-  $("#input-notifications").change(function () {
-    let state = this.checked;
-    browser.storage.local.set({ disableNotifications: !state });
-    browser.runtime.sendMessage({ type: "setAllowNotification", state: state });
-  });
-  $("#input-deep-redirection").change(function () {
-    let state = this.checked;
-    browser.storage.local.set({ disableDeepRedirection: !state });
-    browser.runtime.sendMessage({
-      type: "setAllowDeepRedirects",
-      state: state,
-    });
-  });
-});
+window.$ = window.jQuery = $;

@@ -17,12 +17,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Simple Redirect.  If not, see <http://www.gnu.org/licenses/>.
 
-import "@fortawesome/fontawesome-free/js/fontawesome";
-import "@fortawesome/fontawesome-free/js/solid";
-import "@fortawesome/fontawesome-free/js/regular";
-import "@fortawesome/fontawesome-free/js/brands";
-import "bulma";
-import $ from "jquery";
+import "./common";
 
 function createListItem(
   i,

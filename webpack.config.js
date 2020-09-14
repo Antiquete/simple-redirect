@@ -10,18 +10,6 @@ module.exports = {
     settings: "./src/ui/settings.js",
   },
   devtool: "cheap-module-source-map",
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        styles: {
-          name: "styles",
-          test: /\.css$/,
-          chunks: "all",
-          enforce: true,
-        },
-      },
-    },
-  },
   output: {
     path: path.resolve(__dirname, "ui"),
     filename: "[name].bundle.js",
