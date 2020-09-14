@@ -1,6 +1,6 @@
 {
   "name": "simple-redirect",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Simply redirect all requests from one url to another.",
   "main": "index.js",
   "scripts": {
