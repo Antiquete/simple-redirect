@@ -1,6 +1,6 @@
 /** @format */
 const path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "production",
@@ -10,6 +10,18 @@ module.exports = {
     settings: "./src/ui/settings.js",
   },
   devtool: "cheap-module-source-map",
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: "styles",
+          test: /\.css$/,
+          chunks: "all",
+          enforce: true,
+        },
+      },
+    },
+  },
   output: {
     path: path.resolve(__dirname, "ui"),
     filename: "[name].bundle.js",
@@ -30,20 +42,10 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ["css-loader", "sass-loader"],
-        }),
-      },
-      {
-        test: /\.sass$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ["css-loader", "sass-loader"],
-        }),
+        test: /\.(sa|sc|c)ss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
     ],
   },
-  plugins: [new ExtractTextPlugin("theme.css")],
+  plugins: [new MiniCssExtractPlugin({ filename: "theme.css" })],
 };
