@@ -22,6 +22,8 @@ import "@fortawesome/fontawesome-free/js/solid";
 import "@fortawesome/fontawesome-free/js/regular";
 import "@fortawesome/fontawesome-free/js/brands";
 import "bulma";
+import "bulma-divider";
+import "bulma-switch";
 import $ from "jquery";
 
 function refresh() {
@@ -54,6 +56,11 @@ browser.runtime.sendMessage({ type: "getRedirects" }).then(function (response) {
   if (Redir.isRegex) $("#check-regex").prop("checked", true);
   if (Redir.isDeepRecurse) $("#check-deep-recurse").prop("checked", true);
   if (Redir.shouldNotify) $("#check-notify").prop("checked", true);
+  if (Redir.headerConvert !== 0)
+    $("#select-convert-type option[value=" + Redir.headerConvert + "]").attr(
+      "selected",
+      "selected"
+    );
 
   $("#save-button").click(function () {
     let target = $("#input-target").val();
@@ -61,6 +68,7 @@ browser.runtime.sendMessage({ type: "getRedirects" }).then(function (response) {
     let isRegex = $("#check-regex").prop("checked");
     let isDeepRecurse = $("#check-deep-recurse").prop("checked");
     let shouldNotify = $("#check-notify").prop("checked");
+    let headerConvert = $("#select-convert-type").find(":selected").val();
     sendMessageAndReload({
       type: "updateRedirect",
       source: source,
@@ -69,6 +77,7 @@ browser.runtime.sendMessage({ type: "getRedirects" }).then(function (response) {
       isDeepRecurse: isDeepRecurse,
       isEnabled: isEnabled,
       shouldNotify: shouldNotify,
+      headerConvert: headerConvert,
     });
   });
   $("#del-button").click(function () {
@@ -76,5 +85,12 @@ browser.runtime.sendMessage({ type: "getRedirects" }).then(function (response) {
   });
   $("#cancel-button").click(function () {
     goBack();
+  });
+  $("#check-advanced").click(function () {
+    if ($(this).is(":checked")) {
+      $("section#advanced-options").removeClass("is-hidden");
+    } else {
+      $("section#advanced-options").addClass("is-hidden");
+    }
   });
 });

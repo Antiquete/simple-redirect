@@ -9,7 +9,7 @@ html(lang="en")
     .card
         header.card-header
           p.card-header-title Simple Redirect
-        .card-content
+        .card-content.pb-6
           .content
             form
               .field.has-addons
@@ -22,24 +22,41 @@ html(lang="en")
                   a.button.is-small.is-static Target
                 p.control.is-expanded
                   input#input-target.input.is-small(type="text" value="")
+                  
+              .is-divider(data-content='Options')
+              
               .field
-                p.control
-                  label.checkbox
-                    input#check-enabled(type="checkbox")
-                    |   Enabled
-                p.control
-                  label.checkbox
-                    input#check-deep-recurse(type="checkbox")
-                    |   Deep Redirect
-                p.control
-                  label.checkbox
-                    input#check-regex(type="checkbox")
-                    |   Regex
-                p.control
-                  label.checkbox
-                    input#check-notify(type="checkbox")
-                    |   Notify
-        footer.card-footer
+                  input#check-enabled.switch.is-small.is-success(type="checkbox")
+                  label(for="check-enabled") Enabled
+              .field
+                  input#check-deep-recurse.switch.is-small.is-info(type="checkbox")
+                  label(for="check-deep-recurse") Deep Redirect
+              .field
+                  input#check-regex.switch.is-small.is-info(type="checkbox")
+                  label(for="check-regex") Regex
+              .field
+                  input#check-notify.switch.is-small.is-info(type="checkbox")
+                  label(for="check-notify") Notify
+              .field
+                  input#check-advanced.switch.is-small.is-warning(type="checkbox")
+                  label(for="check-advanced") Advanced Options
+                  
+              section#advanced-options.is-hidden
+                .is-divider(data-content='Advanced Options')
+              
+                .field
+                  .columns.is-vcentered.is-flex        
+                    .column.is-size-7 Header Copy
+                    .column
+                      .select.is-rounded.is-small
+                        select#select-convert-type(name="select-convert-type")
+                          option(value=0) Default
+                          option(value=1) POST ➜ GET
+                          //- FIXME: No way to currently change requestBody POST or GET method in onBeforeRequest
+                          //- https://bugzilla.mozilla.org/show_bug.cgi?id=1376155
+                          //- option(value=2) GET ➜ POST
+                    
+        footer.card-footer(style="position: absolute;width: 100%;bottom: 0;")
           a#cancel-button.card-footer-item(title="Back")
             i.fa.fa-arrow-left
           a#del-button.card-footer-item.is-danger(title="Delete")

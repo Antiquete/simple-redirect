@@ -23,7 +23,8 @@ Rule = function (
   isRegex,
   isDeepRecurse = false,
   isEnabled = true,
-  shouldNotify = true
+  shouldNotify = true,
+  headerConvert = 0
 ) {
   this.source = source;
   this.target = target;
@@ -31,6 +32,7 @@ Rule = function (
   this.isRegex = isRegex;
   this.isDeepRecurse = isDeepRecurse;
   this.shouldNotify = shouldNotify;
+  this.headerConvert = headerConvert;
 };
 
 var Redirects = [];
@@ -56,7 +58,8 @@ function updateRedirect(
   isRegex = null,
   isDeepRecurse = null,
   isEnabled = null,
-  shouldNotify = null
+  shouldNotify = null,
+  headerConvert = null
 ) {
   for (const [i, r] of Redirects.entries()) {
     if (r.source == source) {
@@ -65,6 +68,7 @@ function updateRedirect(
       if (isDeepRecurse !== null) r.isDeepRecurse = isDeepRecurse;
       if (isEnabled !== null) r.isEnabled = isEnabled;
       if (shouldNotify !== null) r.shouldNotify = shouldNotify;
+      if (headerConvert !== null) r.headerConvert = headerConvert;
     }
   }
   saveRedirects();
@@ -134,6 +138,21 @@ function redirect(e) {
     // Handle request
     e.redirectUrl = e.url.replace(new RegExp(r.source, "gi"), r.target);
 
+    // Handle header conversion
+    if (r.headerConvert == 1) {
+      console.log("e.method :>> ", e.method);
+      if (e.method == "POST") {
+        qi = new URLSearchParams(e.requestBody.formData);
+        e.redirectUrl = e.redirectUrl + "?" + qi.toString();
+      }
+    } else if (r.headerConvert == 2) {
+      //- FIXME: No way to currently change requestBody POST or GET method in onBeforeRequest
+      //- https://bugzilla.mozilla.org/show_bug.cgi?id=1376155
+      console.log(
+        "Not immplemented yet: ttps://bugzilla.mozilla.org/show_bug.cgi?id=1376155"
+      );
+    }
+
     // Send notification if allowed globally and is allowed for this rule
     if (allowNotifications)
       if (r.shouldNotify) sendNotification(`"${e.url}" ➜ "${e.redirectUrl}"`);
@@ -148,8 +167,10 @@ function redirect(e) {
 
 const filters = { urls: ["<all_urls>"] };
 
-browser.webRequest.onBeforeRequest.addListener(redirect, filters, ["blocking"]);
-
+browser.webRequest.onBeforeRequest.addListener(redirect, filters, [
+  "blocking",
+  "requestBody",
+]);
 // -- Message Handling
 
 function requestHandler(request, sender, sendResponse) {
@@ -176,7 +197,8 @@ function requestHandler(request, sender, sendResponse) {
         request.isRegex,
         request.isDeepRecurse,
         request.isEnabled,
-        request.shouldNotify
+        request.shouldNotify,
+        request.headerConvert
       );
       break;
     case "setAllowNotifications":
