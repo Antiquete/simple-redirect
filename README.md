@@ -11,6 +11,7 @@ Simply redirect requests from one url to another
 - Deep Redirects - Redirect background third party requests as well
 - Regex Matching - Match and replace requests via regex
 - Notification - Selectively set/unset notifications for each redirect
+- Header Copy - Pass POST variables in GET request
 
 # Development
 
@@ -74,6 +75,10 @@ Run a live instance of extension that reloads automatically on source code chang
 ##### Redirect all background google requests to example.com using Deep Redirects,
   
   <img src="docs/Screenshot-5.png">
+  
+##### Header Copy in action, passing POST variables to GET request while redirecting from DuckDuckGo Non-JS to DuckDuckGo JS,
+  
+  <img src="docs/Screenshot-6.png">
 
 # Contributing
 
